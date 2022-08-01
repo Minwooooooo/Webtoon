@@ -38,6 +38,21 @@
     </tr>
 </table>
 
+<h4><b>🔎 회원가입페이지 </b></h4>
+
+<table width="100%">
+    <tr>
+        <td width="50%"><img src="https://user-images.githubusercontent.com/110237141/182112578-277e1331-7d71-45c9-8e26-20f08937fd99.png" /></td>
+        <td width="50%">
+            <h5>회원가입</h5>
+            <ul>
+                <li>______</li>
+                <li>______</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
 <h4><b>🔎 메인페이지 </b></h4>
 
 <table width="100%">
