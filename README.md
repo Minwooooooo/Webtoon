@@ -1,10 +1,20 @@
-<h3 align="center"><b>미니프로젝트, 사랑방(SarangBang)</b></h3>
+<h3 align="center"><b>그 웹툰 어때</b></h3>
 
 <h4 align="center">1주차 프로젝트(6조)</h4>
 <br>
 
---소개--
-![KakaoTalk_20220801_152313574](https://user-images.githubusercontent.com/110237141/182097429-1334fcbb-4263-46b9-87d6-548f885e80b1.png)
+
+<h3 align="center"><b>📢 로고와 설명 📢</b></h3>
+
+<table width="10%">
+    <tr>
+        <td width="100%"><img src="https://user-images.githubusercontent.com/110237141/182097429-1334fcbb-4263-46b9-87d6-548f885e80b1.png" /></td>
+    </tr>
+    
+</table>
+
+
+
 
 
 
