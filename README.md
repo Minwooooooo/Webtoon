@@ -1,4 +1,4 @@
-<h3 align="center"><b>그 웹툰 어때</b></h3>
+<h3 align="center"><b>▪그 웹툰 어때▪</b></h3>
 
 <h4 align="center">1주차 프로젝트(6조)</h4>
 <br>
