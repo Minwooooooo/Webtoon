@@ -1,38 +1,194 @@
 <!doctype html>
 <html lang="en">
-  <head>
 
-    <!-- Webpage Title -->
-    <title>Hello, world!</title>
-
-    <!-- Required meta tags -->
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-		<!-- JS -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
+    <title>그 웹툰 어때</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+
+        .container {
+            width: 95%;
+            margin: 20px 20px 20px 20%;
+            padding: 20px 20px 20px 30px;
+        }
+
+        .card-group {
+            width: 95%;
+            max-width: 800px;
+            margin: 20px auto 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            width: 150px;
+            margin: 30px auto 30px 20px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .warmbanner {
+            margin: 20px auto 30px auto;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .show_more {
+            margin: 20px auto 30px auto;
+            padding: 25px 120px 25px 120px;
+            border-radius: 30px;
+            background-color: #00D564;
+            border: 0;
+            outline: 0;
+            font-size: 20px;
+        }
+
+        .mybtns > button {
+            margin-right: 10px;
+        }
+    </style>
+    <header>
+        <div class="container">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinlUrtl9JPYZBrkg-H-_eV58TjIwSVRbXxhd6Yvg3fvOUNWZoR_kosskUJFHHbAT_WIG8mwzcprf2XSwl68Z89ZRiBYFLxCpsEKgWZrubLyXOGkgGGFf8UX6XAf4GyjB4n72jAOq1Hgpe6rAItrkLf5eLbQCVoZACLOZ5Gz_m39id9bstNCGIF1tdJ/w237-h33/thiswebtoon.png"
+                 title="그 웹툰 어때"/>
+        </div>
+    </header>
     <script>
-      // 로그아웃은 내가 가지고 있는 토큰만 쿠키에서 없애면 됩니다.
-      function logout(){
-        $.removeCookie('mytoken');
-        alert('로그아웃!')
-        window.location.href='/login'
-      }
+        $(document).ready(function () {
+            listing();
+        });
 
+        function listing() {
+            $.ajax({
+                type: 'GET',
+                url: '/webtoon',
+                data: {},
+                success: function (response) {
+                    let rows = response['webtoons']
+                    console.log(rows)
+                    for (let i = 0; i < rows.length; i++) {
+                        let title = rows[i][1]
+                        let image = rows[i][2]
+                        let star1 = rows[i][3]
+                        let artist = rows[i][4]
+                        let date = rows[i][5]
+                        let link = rows[i][6]
+
+
+                        let temp_html = `<div class="col">
+                                                <div class="card h-100">
+                                                    <img src="..." class="${image}" alt="...">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">${title}</h5>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <small class="text-muted">${artist}</small>
+                                                    </div>
+                                                </div>
+                                          </div>`
+                        $('#cards-box').append(temp_html)
+                    }
+                }
+            })
+        }
+
+
+        function show_more() {
+            $('.more').click(function () {
+                $('.').fadeIn(1000);
+            })
+        }
     </script>
+</head>
 
-  </head>
-  <body>
-    <p>
-      <h1 class="title">로그인하고 5초 동안만 볼 수 있는 페이지입니다.</h1>
-      <h1 class="subtitle">계속 새로고침 해보세요</h1>
-    </p>
-    <h5 class="subtitle">나의 닉네임은: {{nickname}}</h5>
-    <button class="button is-danger" onclick="logout()">로그아웃하기</button>
-  </body>
+<body>
+<div class="warmbanner">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiSjnIP92Yq7FifrHY3j-TOIPK8XKQ_Ob7m7_tWv9bnYOOa2qIHZ24z_Ns6xIsV9OLdRUL0_sjqegznm453WicsRZz6pvCNf4SoNYpj3Kq5HbIDJPs4Ay-GU04ForQ9bbPCvOhnRX8v3kff-_V2jF-KOmRykX42n8TNf2DffA94iU_Q3n2WACtlD1qZ/s16000/warmbanner.png"
+         class="img-fluid" alt="...">
+</div>
+<div class="card-group">
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{star}</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <button class="show_more" type="button">더보기</button>
+</div>
+</body>
+
 </html>
