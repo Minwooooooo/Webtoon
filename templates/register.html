@@ -3,7 +3,7 @@
     <head>
 
         <!-- Webpage Title -->
-        <title>Hello, world!</title>
+        <title>이 웹툰어때</title>
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -34,7 +34,7 @@
                     type: "POST",
                     url: "/api/register",
                     data: {
-                        username_give: $('#input-username').val(),
+                        id_give: $('#input-id').val(),
                         pw_give: $('#input-password').val(),
                         name_give: $('#input-name').val()
                     },
@@ -54,7 +54,7 @@
 
 
 
-
+            {###비밀번호 재입력시 이전에 입력한 값과 일치한지 확인#}
             function input_repassword() {
                 let repassword = $("#input-repassword").val()
 
@@ -76,7 +76,7 @@
                     return;
                 }
             }
-
+            {#이름입력시 한글로 2자이상만 가능하다는 조건을 검#}
             function input_name(){
                 let name = $("#input-name").val()
 
@@ -96,7 +96,7 @@
                     $("#help-name").removeClass("is-loading")
              }
 
-
+             {#비밀번호 입력시 형식의 조건을 검#}
              function input_password() {
                  let password = $("#input-password").val()
 
@@ -121,18 +121,18 @@
 
 
 
-
+            {#아이디 입력시 형식에 조건을 걸고 중복되는 아이디인지 DB에서 확인#}
             function check_dup() {
-                let username = $("#input-username").val()
-                console.log(username)
-                if (username == "") {
+                let id = $("#input-id").val()
+                console.log(id)
+                if (id == "") {
                     $("#help-id").text("아이디를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
-                    $("#input-username").focus()
+                    $("#input-id").focus()
                     return;
                 }
-                if (!is_username(username)) {
+                if (!is_id(id)) {
                     $("#help-id").text("아이디의 형식을 확인해주세요. 영문과 숫자, 일부 특수문자(._-) 사용 가능. 2-10자 길이").removeClass("is-safe").addClass("is-danger")
-                    $("#input-username").focus()
+                    $("#input-id").focus()
                     return;
                 }
                 $("#help-id").addClass("is-loading")
@@ -140,13 +140,13 @@
                     type: "POST",
                     url: "/sign_up/check_dup",
                     data: {
-                        username_give: username
+                        id_give: id
                     },
                     success: function (response) {
 
                         if (response["exists"]) {
                             $("#help-id").text("이미 존재하는 아이디입니다.").removeClass("is-safe").addClass("is-danger")
-                            $("#input-username").focus()
+                            $("#input-id").focus()
                         } else {
                             $("#help-id").text("사용할 수 있는 아이디입니다.").removeClass("is-danger").addClass("is-success")
                         }
@@ -158,8 +158,7 @@
 
 
 
-
-            function is_username(asValue) {
+            function is_id(asValue) {
                 var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
                 return regExp.test(asValue);
             }
@@ -190,7 +189,7 @@
                     <div class="content">
                         <div class="field has-addons">
                             <div class="control has-icons-left" style="width:100%">
-                                <input id="input-username" class="input" type="text" placeholder="아이디">
+                                <input id="input-id" class="input" type="text" placeholder="아이디">
                                 <span class="icon is-small is-left"><i class="fa fa-user"></i></span>
                             </div>
                             <div id="btn-check-dup" class="control">
