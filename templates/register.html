@@ -70,12 +70,13 @@
                 } else if (repassword == password) {
                     $("#help-password2").text("일치합니다.").removeClass("is-danger").addClass("is-safe")
                     $("#input-repassword").focus()
-                    return;
+                    return true;
                 } else if (repassword != password) {
                     $("#help-password2").text("불일치합니다").removeClass("is-safe").addClass("is-danger")
                     $("#input-repassword").focus()
-                    return;
+                    return false;
                 }
+
             }
 
 

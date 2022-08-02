@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>그 웹툰 어때</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Title</title>
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+
+
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .bNet {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero {
+            width: 50%;
+            height: 100%;
+            background-color: white;
+            justify-content: flex-end;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-body > img {
+            width: 600px;
+            height: 700px;
+            margin-bottom: auto;
+        }
+
+        .section {
+            width: 50%;
+            height: 1000px;
+            float: right;
+        }
+
+        .id_pw {
+            /* 폰트 수정 */
+            text-align: left;
+            letter-spacing: 0px;
+            color: black;
+            opacity: 1;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .is-primary {
+            /*label_box*/
+            width: 430px;
+            height: 48px;
+            margin-top: 14px;
+            background-color: black;
+            border: 1px solid white;
+            color: black;
+            font-size: 18px;
+        }
+
+        .is-primary.input {
+            border: 1px solid green;
+            border-radius: 8px;
+            margin-top: 5px;
+            background-color: white;
+        }
+
+        .is-primary::placeholder {
+            color: slategrey;
+            font-size: 15px;
+        }
+
+        .is-white {
+            width: 100px;
+            height: 56px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .is-black2 {
+            width: 100px;
+            height: 56px;
+            border: 1px solid white;
+            border-radius: 10px;
+            opacity: 1;
+            background-color: green;
+            color: white;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function movesign_up() {
+            location.href = '/register'
+        }
+
+        function sign_in() {
+            let username = $("#input-username").val()
+            let password = $("#input-password").val()
+
+            if (username == "") {
+                $("#help-id-login").text("아이디를 입력해주세요.")
+                $("#input-username").focus()
+                return;
+            } else {
+                $("#help-id-login").text("")
+            }
+
+            if (password == "") {
+                $("#help-password-login").text("비밀번호를 입력해주세요.")
+                $("#input-password").focus()
+                return;
+            } else {
+                $("#help-password-login").text("")
+            }
+            $.ajax({
+                type: "POST",
+                url: '/sign_in',
+                data: {
+                    username_give: username,
+                    password_give: password
+                },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        $.cookie('mytoken', response['token'], {path: '/'});
+                         alert('로그인 완료!')
+                        window.location.replace("/")
+                    } else {
+                        alert(response['msg'])
+                    }
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+<div class="bNet">
+    <section class="hero">
+        <div class="hero-body has-text-centered" style="padding-bottom:1rem;margin:auto;">
+            <img src="../static/그웹툰어때%20transparent.png">
+        </div>
+    </section>
+    <section class="section">
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <h1 class="id_pw">아이디</h1>
+        <input class="input is-primary" type="text" id="input-username" placeholder="아이디를 입력해주세요">
+        <h1 id="help-id-login" class="help is-danger"></h1>
+
+        <h1 class="id_pw" style="margin-top: 10px;">비밀번호</h1>
+        <input class="input is-primary" type="password" id="input-password" placeholder="비밀번호를 입력해주세요">
+        <h1 id="help-password-login" class="help is-danger"></h1>
+
+        <button class="button is-white" onclick="sign_in()">로그인</button>
+        <button class="button is-black2" onclick="movesign_up()">회원가입</button>
+
+    </section>
+</div>
+</body>
+</html>
