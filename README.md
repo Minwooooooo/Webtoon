@@ -82,3 +82,88 @@
         </td>
     </tr>
 </table>
+
+<br>
+<h3 align="center"><b>🏷 API Table 🏷</b></h3>
+<table width="100%">
+    <tr align="center">
+	<td width="12%"><b>Function</b></td>
+        <td width="5%"><b>Method</b></td>
+        <td width="12%"><b>URL</b></td>
+        <td width="30%"><b>Request</b></td>
+        <td width="31%"><b>Response</b></td>
+    </tr>
+    <tr>
+        <td width="12%">메인화면 페이지 로드</td>
+        <td width="5%"></td>
+        <td width="12%">/</td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">로그인 페이지 로드</td>
+        <td width="5%"></td>
+        <td width="12%">/</td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">회원가입 페이지 로드</td>
+        <td width="5%"></td>
+        <td width="12%">/</td>
+        <td width="30%"></td>
+        <td width="31%"</td>
+    </tr>
+    <tr>
+        <td width="12%">글쓰기 페이지 로드</td>
+        <td width="5%"></td>
+        <td width="12%"></td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">회원가입</td>
+        <td width="5%"></td>
+        <td width="12%"></td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">ID 중복검사</td>
+        <td width="5%"></td>
+        <td width="12%"></td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">로그인</td>
+        <td width="5%"></td>
+        <td width="12%"></td>
+        <td width="30%">{'id': username_give, 'pw': password_give}</td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">리뷰 저장</td>
+        <td width="5%">POST</td>
+        <td width="12%"></td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">개인 페이지 로드</td>
+        <td width="5%"></td>
+        <td width="12%"></td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+    <tr>
+        <td width="12%">개인정보 수정 삭제</td>
+        <td width="5%"></td>
+        <td width="12%"></td>
+        <td width="30%"></td>
+        <td width="31%"></td>
+    </tr>
+
+</table>
+
+<br>
