@@ -39,30 +39,26 @@ def login():
 def register():
     return render_template('register.html')
 
-#################################
-##  로그인을 위한 API            ##
-#################################
-
 # [회원가입 API]
 # id, pw, nickname을 받아서, mongoDB에 저장합니다.
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
 
 @app.route('/api/register', methods=['POST'])
 def api_register():
-    id_receive = request.form['id_give']
+    username_receive = request.form['username_give']
     pw_receive = request.form['pw_give']
-    nickname_receive = request.form['nickname_give']
+    name_receive = request.form['name_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'nick': nickname_receive})
+    db.user.insert_one({'username': username_receive, 'pw': pw_hash, 'name': name_receive})
 
     return jsonify({'result': 'success'})
 
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():
     username_receive = request.form['username_give']
-    exists = bool(db.user.find_one({"id": username_receive}))
+    exists = bool(db.user.find_one({"username": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
 @app.route('/sign_up/check_nickdup', methods=['POST'])
