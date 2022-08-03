@@ -1,18 +1,17 @@
 import jwt
 import datetime
 import hashlib
-from flask import Flask, render_template, jsonify, request, redirect, url_for
+from flask import Flask, render_template, jsonify, request, redirect, url_for,flash
 from datetime import datetime, timedelta
-
+import re
 
 app = Flask(__name__)
 
 SECRET_KEY = 'SPARTA'
 
 from pymongo import MongoClient
-client = MongoClient('mongodb+srv://test:sparta@cluster0.cadiwnl.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('mongodb+srv://test:sparta@cluster0.fihmw.mongodb.net/?retryWrites=true&w=majority')
 db = client.dbsparta
-
 
 @app.route('/')
 def home():
@@ -36,23 +35,48 @@ def login():
 def register():
     return render_template('register.html')
 
+
+
+
 # [회원가입 API]
 # id, pw, nickname을 받아서, mongoDB에 저장합니다.
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
+
 
 @app.route('/api/register', methods=['POST'])
 def api_register():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
     name_receive = request.form['name_give']
+    rpw_receive = request.form['rpw_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
-    db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'name': name_receive})
+    if len(id_receive) < 5 or len(id_receive) > 10 and not re.findall("[0-9]+", id_receive) and not \
+            re.findall("[a-z]", id_receive):
+         # flash("아이디 5자 이상 입력.", category="error")
+         return jsonify({'result': '아이디 형식이 일치하지 않습니다.'})
 
+    elif len(pw_receive) < 8 or len(pw_receive) > 20 and not re.findall("[0-9]+", pw_receive) and not \
+            re.findall("[a-z]",pw_receive) or not re.findall("[~!@#$%^&*(),<.>/?]+", pw_receive):
+         # flash("영문과 숫자로 조합하여 8~20자의 비밀번호", category="error")
+         return jsonify({'result': '비밀번호 형식이 일치하지 않습니다.'})
+
+    elif len(name_receive) < 2 or len(name_receive) > 10 and not re.findall("[0-9]+", name_receive) and not \
+            re.findall("[a-z]",name_receive) :
+         # flash("이름은 2자 이상 입력.", category="error")
+         return jsonify({'result': '이름을 최대 2글자 이상으로 입력해주세요'})
+
+    elif pw_receive != rpw_receive:
+         # flash("비밀번호와 비밀번호재입력이 서로 다릅니다.", category="error")
+         return jsonify({'result': '비밀번호와 비밀번호 재입력이 서로 다릅니다.'})
+
+    else:
+
+        db.user.insert_one({'id': id_receive, 'pw': pw_hash, 'name': name_receive})
     return jsonify({'result': 'success'})
 
-#id가 DB에 저장된것 중에 있으면 중복으로 불가능함을 나타냄
+#DB dnt EXIST 중복값 확인 FINE 사용으로 중복없으면 false, 있으면 true
 @app.route('/sign_up/check_dup', methods=['POST'])
 def check_dup():
     id_receive = request.form['id_give']
