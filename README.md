@@ -17,24 +17,7 @@
 </table>
 
 
-<h3 align="center"><b>📎 구현 기능 </b></h3>
-
-<table>
-    <td>
-        <h5> 로그인 로그아웃</h5>
-	<h5> 메인페이지</h5>
-	 <li></li>  
-	<h5> 리뷰페이지</h5>
-	<h5> 마이페이지</h5>
-	<h5> 마이리뷰</h5>
-   </td>
-    
-</table>
-
-
-
-
-<h3 align="center"><b>📎 와이어 프레임 </b></h3>
+<h3 align="center"><b>📎 와이어 프레임 및  </b></h3>
 <br>
 <h4><b>🔎 로그인페이지 </b></h4>
 
@@ -74,8 +57,8 @@
         <td width="50%">
             <h5>웹툰 목록</h5>
             <ul>
-                <li>______</li>
-                <li>______</li>
+	     <li> 실제 네이버 개그웹툰의 정보를 크롤링</li>  
+	     <li> 해당 웹툰 클릭시 클릭한 div의 정보를 SesionStorage에 저장</li>
             </ul>
         </td>
     </tr>
@@ -89,8 +72,37 @@
         <td width="50%">
             <h5>리뷰</h5>
             <ul>
-                <li>______</li>
-                <li>______</li>
+	     <li> 저장한 div의 정보를 기반으로 해당웹툰 고유의 리뷰페이지 출력</li>  
+	     <li> 웹툰에 대한 편리한 리뷰 등록/삭제</li>  
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<h4><b>🔎 마이페이지 </b></h4>
+
+<table width="100%">
+    <tr>
+        <td width="50%"><img src= /></td>
+        <td width="50%">
+            <h5>리뷰</h5>
+            <ul>
+	     <li> 개인 ID와 리뷰에 대한 정보를 확인</li>  
+	     <li> 비밀번호 변경과 회원 탈퇴기능</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<h4><b>🔎 마이페이지 </b></h4>
+
+<table width="100%">
+    <tr>
+        <td width="50%"><img src= /></td>
+        <td width="50%">
+            <h5>리뷰</h5>
+            <ul>
+	    <li> 리뷰페이지와 달리 자신이 작성한 모든 리뷰 열람 </li>  
             </ul>
         </td>
     </tr>
