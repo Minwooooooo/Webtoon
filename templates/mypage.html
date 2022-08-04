@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <style>
+
+        header {
+            border-bottom: 0.4em solid #00C73C;
+            position: sticky;
+            background-color: white;
+            margin-bottom: 1em;
+            width: 100%;
+            height: 8em;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+        }
+
+        .titimg {
+            float: left;
+            cursor: pointer;
+        }
+
+        .tittext {
+            margin-right: 0em;
+            display: flex;
+            position: fixed;
+            top: 3.5em;
+            right: 2em;
+        }
+
+        .outbtn {
+            float: right;
+            font-size: 0.7em;
+            position: fixed;
+            top: 8em;
+            right: 3em;
+        }
+
+        .container {
+            margin: 5px;
+        }
+
+        .card {
+            width: 100%;
+            min-height: 30%;
+            margin-top: 2em;
+
+        }
+
+        .card-header {
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 35px;
+            background-color: #00C73C;
+        }
+
+        .card-footer {
+            height: 35px;
+            font-size: 8px;
+            text-align: center;
+            background-color: #00C73C;
+        }
+
+        .card-text {
+            text-align: left;
+            font-size: 1em;
+            height: 100%;
+            overflow-y: scroll;
+
+        }
+
+        .title {
+            margin: 3%;
+            width: 90%;
+            position: sticky;
+        }
+
+        .fbtnbox {
+            float: right;
+        }
+
+        .fbtnbox > * {
+            border-radius: 0.7em;
+        }
+
+        .m-btn {
+            border: 1px solid red;
+            border-radius: 0.7em;
+            color: white;
+            font-weight: bold;
+            font-size: 9px;
+            float: right;
+            background-color: red;
+            background-color: rgba(255, 0, 0, 0.9);
+        }
+
+        .m-btn:hover {
+            border: 1.5px solid red;
+            background-color: red;
+            opacity: 1;
+        }
+
+        .m-btnb {
+            border: 1px solid #00D564;
+            border-radius: 0.7em;
+            font-weight: bold;
+            font-size: 9px;
+            color: black;
+            float: right;
+            background-color: white;
+            opacity: 0.7;
+        }
+
+        .m-btnb:hover {
+            border: 1.5px solid white;
+            background-color: white;
+            opacity: 1;
+        }
+
+
+        .btn-left {
+            background-color: transparent;
+            width: 40%;
+            border: .2em solid white;
+            border-right: 0;
+        }
+
+        .btn-right {
+            border: .2em solid white;
+            background-color: white;
+            width: 60%;
+            border-left: 0;
+        }
+
+        .btn-group {
+            width: 100%;
+            padding: 2%;
+        }
+
+        #popup_layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: none;
+        }
+
+        /*팝업 박스*/
+        .popup_box {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            width: 550px;
+            height: 480px;
+            transform: translate(-50%, -50%);
+            z-index: 1002;
+            box-sizing: border-box;
+            background: #fff;
+            box-shadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.35);
+            -webkit-box-shadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.35);
+            -moz-box-shadow: 2px 5px 10px 0px rgba(0, 0, 0, 0.35);
+        }
+
+        /*컨텐츠 영역*/
+        .popup_box .popup_cont {
+            padding: 50px;
+            line-height: 1.4rem;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        .popup_box .popup_cont h2 {
+            padding: 15px 0;
+            color: #333;
+            margin: 0;
+        }
+
+        .popup_box .popup_cont p {
+            border-top: 1px solid #666;
+            padding-top: 30px;
+        }
+
+        /*버튼영역*/
+        .popup_box .popup_btn {
+            display: table;
+            table-layout: fixed;
+            width: 100%;
+            height: 70px;
+            background: #5d5d5d;
+            word-break: break-word;
+        }
+
+        .popup_box .popup_btn a {
+            position: relative;
+            display: table-cell;
+            height: 70px;
+            color: #fff;
+            font-size: 17px;
+            text-align: center;
+            vertical-align: middle;
+            text-decoration: none;
+            background: #102c5c;
+        }
+
+        .popup_box .popup_btn a:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 26px;
+            right: 29px;
+            width: 1px;
+            height: 21px;
+            background: #fff;
+            -moz-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+
+        .popup_box .popup_btn a:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 26px;
+            right: 29px;
+            width: 1px;
+            height: 21px;
+            background: #fff;
+            -moz-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .popup_box .popup_btn a.close_day {
+            background: #5d5d5d;
+        }
+
+        .popup_box .popup_btn a.close_day:before, .popup_box .popup_btn a.close_day:after {
+            display: none;
+        }
+
+        #byebox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10000;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: none;
+        }
+
+
+    </style>
+</head>
+
+<script>
+    $(document).ready(function () {
+        call_info();
+    });
+
+
+    // 개인정보 자동 호출
+    function call_info() {
+        var id = sessionStorage.getItem('id')
+        // index에서저장한 sessionStrotage에서 'id'를 불러와서 id 라 정의
+        var list = document.getElementsByClassName("id")
+        // class가 "id" 인 모든 항을 찾아서 리스트화
+        console.log('#id', id, list)
+        if (!id) {
+            alert("세션이 만료되었습니다. 로그인 페이지로 돌아갑니다.")
+            location.replace("/login")
+        } else {
+            // 로그 점검
+            for (var i = 0; i < list.length; i++) {
+                list[i].innerText = id
+            }
+            //console.log('qwer', id)
+            $.ajax({
+                type: 'GET',
+                url: '/test',
+                data: {info_id: id},
+                success: function (response) {
+                    console.log(response['name'])
+                    var name = response['name']
+                    var list = document.getElementsByClassName("name")
+                    console.log(name)
+                    for (var i = 0; i < list.length; i++) {
+                        console.log('#namelist', list[i])
+                        list[i].innerText = name
+                    }
+                    var num = response['count']
+                    var count = document.getElementsByClassName("count")
+                    for (var i = 0; i < count.length; i++) {
+                        count[i].innerText = num
+                    }
+                    var r1_comt = response['review_1']['bucket']
+                    var r2_comt = response['review_2']['bucket']
+                    let num1 = response['review_1']['num']
+                    let num2 = response['review_2']['num']
+                    let title1=response['review_1']['title']
+                    let title2=response['review_2']['title']
+                    console.log(r1_comt, r2_comt)
+                    if (r1_comt == 'None') {
+                        console.log('#1')
+                        let temp_html = `<div class="card text-center">
+                    <div class="card-header">
+
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">남기신 리뷰가 없습니다.</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <button onclick="location.href='/'" class="m-btnb"> 리뷰남기러가기</button>
+                    </div>
+                </div>`
+                        $('#comt').append(temp_html)
+                    } else if (r2_comt == 'None') {
+                        console.log('#2')
+                        let temp_html = `<div class="card text-center">
+                                         <div class="card-header">
+                                            ${title1}
+                                         </div>
+                                         <div class="card-body">
+                                             <p class="card-text"> ${r1_comt} </p>
+                                         </div>
+                                         <div class="card-footer text-muted">
+                                             <button onclick="delete_bucket(${num1})" class="m-btn"> 삭제하기</button>
+                                         </div>
+                                     </div>`
+                        $('#comt').append(temp_html)
+                    } else {
+                        console.log('#3')
+                        let temp_html = `<div class="card text-center">
+                                         <div class="card-header">
+                                            ${title1}
+                                         </div>
+                                         <div class="card-body">
+                                             <p class="card-text"> ${r1_comt} </p>
+                                         </div>
+                                         <div class="card-footer text-muted">
+                                             <button onclick="delete_bucket(${num1})" class="m-btn"> 삭제하기</button>
+                                         </div>
+                                     </div>`
+                        $('#comt').append(temp_html)
+                        let temp_html2 = `<div class="card text-center">
+                                         <div class="card-header">
+                                            ${title2}
+                                         </div>
+                                         <div class="card-body">
+                                             <p class="card-text"> ${r2_comt} </p>
+                                         </div>
+                                         <div class="card-footer text-muted">
+                                             <button onclick="delete_bucket(${num2})" class="m-btn"> 삭제하기</button>
+                                         </div>
+                                     </div>`
+                        $('#comt').append(temp_html2)
+                    }
+                }
+            })
+        }
+    }
+
+    function delete_bucket(num) {
+        $.ajax({
+            type: "POST",
+            url: "/review/bucket/delete",
+            data: {num_give: num},
+            success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+            }
+        });
+    }
+
+    function open_pw() {
+        $('#popup_layer').show()
+        console.log("오픈")
+    }
+
+    function close_pw() {
+        $('#popup_layer').hide()
+    }
+
+    function input_newpassword2() {
+        let password = $("#new-password").val()
+
+        let password2 = $("#new-password2").val()
+
+
+        console.log(password2)
+        if (password2 == "") {
+            $("#help-newpassword2").text("비밀번호를 한번 더 입력해주세요").removeClass("is-safe").addClass("is-danger")
+            $("#new-password2").focus()
+            console.log('재입력필요')
+            return;
+        } else if (password2 == password) {
+            $("#help-newpassword2").text("일치합니다.").removeClass("is-danger").addClass("is-success")
+            $("#new-password2").focus()
+            console.log('일치')
+            return;
+        } else if (password2 != password) {
+            $("#help-newpassword2").text("불일치합니다").removeClass("is-safe").addClass("is-danger")
+            $("#new-password2").focus()
+            console.log('불일치')
+            return;
+        }
+    }
+
+    function input_newpassword() {
+        let password = $("#new-password").val()
+        console.log('시작')
+        console.log(password)
+        if (password == "") {
+            $("#help-newpassword").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
+            $("#input-newpassword").focus()
+            console.log('새비번입력필요')
+            return;
+        }
+        if (!is_password(password)) {
+            $("#help-newpassword").text("비밀번호의 형식을 확인해주세요. 영문과 숫자, 일부 특수문자(._-) 사용 가능. 2-10자 길이").removeClass("is-safe").addClass("is-danger")
+            $("#input-newpassword").focus()
+            console.log('형식오류')
+            return;
+        } else {
+            $("#help-newpassword").text("사용할 수 있는 비밀번호입니다.").removeClass("is-danger").addClass("is-success")
+        }
+        $("#help-newpassword").removeClass("is-loading")
+        console.log('사용가능')
+    }
+
+    function is_password(asValue) {
+        var regExp = (/^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/);
+        return regExp.test(asValue);
+    }
+
+    function pw_cahnge() {
+        let c_pw = $("#now-password").val()
+        let n_pw = $("#new-password").val()
+        let m_pw = $("#new-password2").val()
+        let id = sessionStorage.getItem('id')
+
+        if (c_pw == "") {
+            alert("현재 비밀번호를 입력해주세요")
+            return;
+        } else if (!is_password(n_pw)) {
+            alert("신규 비밀번호 형식을 확인해주세요")
+            return;
+        } else if (n_pw != m_pw) {
+            alert(" 신규 비밀번호가 일치하지 않습니다 ")
+            return;
+        } else if (c_pw == n_pw && n_pw == m_pw) {
+            alert(" 기존 비밀번호와 신규 비밀번호가 일치합니다 ")
+            return;
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: '/pw_change',
+                data: {new_pw: n_pw, org_pw: c_pw, id: id},
+                success: function (change) {
+                    console.log("성공")
+                    alert(change['msg'])
+                    if (change['key'] == 0) {
+                        $('#popup_layer').hide()
+                    }
+                }
+            })
+        }
+    }
+
+    function log_out() {
+        $.removeCookie('mytoken', {path: '/'});
+        alert('로그아웃!')
+        sessionStorage.clear()
+        window.location.href = "/login"
+    }
+
+    function go_main() {
+        window.location.href = "/"
+    }
+
+    function opne_bye() {
+        $('#byebox').show()
+        console.log("오픈")
+    }
+
+    function close_bye() {
+        $('#byebox').hide()
+    }
+
+    function byebye() {
+        let pw = $("#pw").val()
+        let id = sessionStorage.getItem('id')
+        console.log(pw, id)
+        if (pw == "") {
+            alert("비밀번호를 입력해주세요")
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: '/byebye',
+                data: {id: id, pw: pw},
+                success: function (bye) {
+                    let k = bye['key']
+                    if (k == 0) {
+                        alert(bye['msg'])
+                        $('#byebox').hide()
+                        window.location.href = "/login"
+                    } else {
+                        alert(bye['msg'])
+                    }
+                }
+            })
+        }
+    }
+
+
+</script>
+<header>
+    <div class="container">
+        <img onclick="go_main()" src="https://ifh.cc/g/PRnQVV.png" ; class="titimg" width="120px" ; height="120px" ;
+             title="그 웹툰 어때"/>
+        <div class="tittext">
+            <p class="name">닉네임 </p>
+            <p> &nbsp; 님 &nbsp; </p>
+            <p> 안녕하세요</p>
+        </div>
+        <button onclick="log_out()" class="button is-danger outbtn">로그아웃</button>
+    </div>
+
+</header>
+
+<div class="tile is-ancestor">
+    <div class="tile is-vertical is-5">
+        <div class="tile is-vertical m-title">
+            <div class="tile is-parent is-vertical">
+                <article class="tile is-child notification is-primary">
+                    <p class="title">개인정보</p>
+                    <p class="subtitle">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <p class="btn btn-left"><span class="material-symbols-outlined">fingerprint</span>ID</p>
+                        <p class="btn btn-right nick id">아이디</p>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <p class="btn btn-left"><span class="material-symbols-outlined">badge</span>이름</p>
+                        <p class="btn btn-right name">네임</p>
+                    </div>
+                    <div class="fbtnbox">
+                        <button onclick="open_pw()" type="button" class="btn btn-secondary">비밀번호변경</button>
+                        <button onclick="opne_bye()" type="button" class="btn btn-danger">회원탈퇴</button>
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent is-vertical">
+                <article class="tile is-child notification is-info">
+                    <p class="title">방문 기록</p>
+                    <p class="subtitle">
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <p class="btn btn-left"><span class="material-symbols-outlined">done_outline</span>방문횟수</p>
+                        <p class="btn btn-right">00회 방문하셨습니다.</p>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <p class="btn btn-left"><span class="material-symbols-outlined">draw</span>남긴리뷰</p>
+                        <p class="btn btn-right"><span class="count">00</span> 개의 리뷰를 남겼어요.</p>
+                    </div>
+                </article>
+            </div>
+            <div class="tile is-parent">
+                <article onclick="location.href='/myreview'" class="tile is-child notification is-danger"
+                         style="cursor: pointer">
+                    <p class="title">내 리뷰 보러가기</p>
+                    <div class="content">
+                        <!-- Content -->
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="tile is-parent">
+        <article class="tile is-child notification is-warning">
+            <div class="content">
+                <p class="title">최근 남긴 리뷰</p>
+                <p class="subtitle" id="comt">
+
+                </p>
+                <div class="content">
+                    <!-- Content -->
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+
+</div>
+<div></div>
+<div id="popup_layer">
+    <div class="popup_box">
+        <div class="popup_cont">
+            <h2 style="font-size: 3em;">비밀번호 변경</h2>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input id="now-password" class="input" type="password"
+                           placeholder="현재 비밀번호">
+                    <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                    <div id="help-password" class="help">현재 비밀번호를 입력해주세요.</div>
+                </div>
+            </div>
+
+            <div class="field">
+
+                <div class="control has-icons-left">
+                    <input onchange="input_newpassword(this)" id="new-password" class="input" type="password"
+                           placeholder="새로운 비밀번호">
+                    <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                </div>
+                <div id="help-newpassword" class="help">영문과 숫자 및 특수문자(!@#$%^&*)를 포함하여 8-20자의 비밀번호를 설정해주세요.</div>
+            </div>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input onchange="input_newpassword2(this)" id="new-password2" class="input" type="password"
+                           placeholder="새로운 비밀번호 재입력">
+                    <span class="icon is-small is-left"><i class="fa fa-lock"></i></span>
+                </div>
+                <div id="help-newpassword2" class="help">비밀번호를 다시 한 번 입력해주세요.</div>
+            </div>
+        </div>
+        <div class="popup_btn">
+            <a id="chk_today" onclick="pw_cahnge()" class="close_day">비밀번호 변경</a>
+            <a onclick="close_pw()">닫기</a>
+        </div>
+    </div>
+</div>
+<div id="byebox">
+    <div class="popup_box" style="height:450px">
+        <div class="popup_cont">
+            <h2 style="font-size: 3em; ">회원탈퇴</h2>
+            <div class="field">
+                <div>
+                    <form class="box">
+                        <div class="field">
+                            <label class="label">탈퇴 후 계정 복구는 불가능합니다.</label>
+                            <label class="label">작성하신 리뷰는 [그 웹툰 어때]에 남습니다.</label>
+                            <label class="label" style="font-size: 0.4em">삭제할 리뷰가 있다면?</label>
+                        </div>
+                        <div class="field">
+                            <label class="label">탈퇴를 원하시면 비밀번호를 입력해주세요</label>
+                            <div class="control">
+                                <input id="pw" class="input" type="password" placeholder="********">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="popup_btn">
+                <a id="chk_today" onclick="byebye()" class="close_day" style="background-color: crimson">회원탈퇴</a>
+                <a onclick="close_bye()">닫기</a>
+            </div>
+        </div>
+    </div>
+
+
+    </body>
+</html>
