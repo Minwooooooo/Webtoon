@@ -21,30 +21,67 @@
             font-family: 'Gowun Dodum', sans-serif;
         }
 
+        .mytitle {
+            width: 100%;
+            height: 250px;
+
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://movie-phinf.pstatic.net/20210715_95/1626338192428gTnJl_JPEG/movie_image.jpg');
+            background-position: center;
+            background-size: cover;
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mycards {
+            margin: 0px auto 0px auto;
+            width: 95%;
+            max-width: 1200px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-img {
+            float: right;
+            vertical-align: top;
+            position: absolute;
+            right: 210px;
+        }
+
+        .desc-box {
+            overflow: hidden;
+            height: 200px;
+            width: 220px;
+            text-align: center;
+            border: solid 1px green;
+        }
+
+        .topbutton {
+            background-color: #00C73C;
+            border: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            position: fixed;
+            bottom: 100px; /* 브라우저 아래쪽 끝에서부터의 거리 */
+            right: 200px; /* 브라우저 오른쪽 끝에서부터의 거리 */
+            cursor: pointer;
+            z-index: 99;
+            border-radius: 50%;
+        }
+
         .container {
             width: 95%;
             margin: 20px 20px 20px 20%;
             padding: 20px 20px 20px 30px;
-        }
-
-        .card-group {
-            width: 95%;
-            max-width: 800px;
-            margin: 20px auto 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card {
-            width: 150px;
-            margin: 30px auto 30px 20px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .warmbanner {
@@ -55,140 +92,178 @@
             justify-content: center;
         }
 
-        .show_more {
-            margin: 20px auto 30px auto;
-            padding: 25px 120px 25px 120px;
-            border-radius: 30px;
-            background-color: #00D564;
-            border: 0;
-            outline: 0;
-            font-size: 20px;
+        .card-title {
+            font-weight: bold;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: -webkit-match-parent;
+            color: #000;
+            white-space: nowrap;
         }
 
-        .mybtns > button {
-            margin-right: 10px;
+        .card-img {
+            margin: 10px;
+            align-items: center;
+            justify-content: center;
         }
+
+        .artist-name {
+            font-size: 13px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .star {
+            font-size: 14px;
+        }
+
+        .card-btn {
+            width: 100%;
+            legth: 30%;
+        }
+
+        #btn1 {
+            font-size: 8px;
+            background-color: #00C73C;
+            border-color: black;
+            border-width: 2px;
+        }
+
+        #btn2 {
+            font-size: 8px;
+            border-color: black;
+            background-color: white;
+            border-width: 2px;
+        }
+
+        .mp-letter {
+            display: inline-block;
+            font-weight: bold;
+        }
+
+
     </style>
     <header>
         <div class="container">
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEinlUrtl9JPYZBrkg-H-_eV58TjIwSVRbXxhd6Yvg3fvOUNWZoR_kosskUJFHHbAT_WIG8mwzcprf2XSwl68Z89ZRiBYFLxCpsEKgWZrubLyXOGkgGGFf8UX6XAf4GyjB4n72jAOq1Hgpe6rAItrkLf5eLbQCVoZACLOZ5Gz_m39id9bstNCGIF1tdJ/w237-h33/thiswebtoon.png"
                  title="그 웹툰 어때"/>
+            <div oonclick="location.href='mypage'" class="profile-img" style="cursor: pointer">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj2A71sIPAYV4x9lLhiRUbH6pQ9uSGd7nMG1uFTGVFnHraliDtysYEFKdZGiaIhSrgYCzigD5NdmFohzsPuiwT5unR2UetkU_G2jWrzHQ9o3cMF83dtmd5Oc_7TjUtgwReZeVyoVYF7IkymJ-CWdKGfb7RvCWI52mRcp7DwT5UmTJaDvx0mrVMA9wlw/s16000/profile_img.png">
+                <div class="mp-letter" onclick="location.href='mypage'">
+                    <p style="cursor: pointer">마이페이지</p>
+                </div>
+            </div>
         </div>
     </header>
     <script>
         $(document).ready(function () {
-            listing();
+            listig();
+        });
+        $(document).ready(function () {
+            list();
+        });
+        $(document).ready(function () {
+            saveinfo();
         });
 
-        function listing() {
+        // 페이지 로딩시 로그인시 사용한 id(중복없음)를 세션스토리지에 저장
+        function saveinfo() {
+            $.ajax({
+                type: 'GET',
+                url: '/',
+                data: {},
+                success: function (save) {
+                    console.log('{{ user_id }}')
+                    sessionStorage.setItem('id', '{{ user_id }}')
+                }
+            })
+        }
+
+        // 수정없이 받아서 노출만 하기때문에 get방식 선택
+        // 받을 내용을 rows로 묶고 console.log를 통하여 확인
+        // 이후 rows에서 필요한내용을 for문을 통하여 추출 및 정리
+        // 노출할 양식에 위에서 구한 변수들을 대입하여 새로 묶기(temp_html와 `` 이용)
+        // 이후 웹에 붙여넣는 코딩('#붙여넣을곳 ID'.append)후 원래 양식 삭제
+
+
+        function list() {
             $.ajax({
                 type: 'GET',
                 url: '/webtoon',
                 data: {},
                 success: function (response) {
-                    let rows = response['webtoons']
-                    console.log(rows)
+                    let rows = response['webtoon']
                     for (let i = 0; i < rows.length; i++) {
+                        let no = rows[i][0]
                         let title = rows[i][1]
                         let image = rows[i][2]
                         let star1 = rows[i][3]
                         let artist = rows[i][4]
                         let date = rows[i][5]
                         let link = rows[i][6]
+                        let star = rows[i][7]
 
+                        let star_image = '⭐'.repeat(star / 2)
 
-                        let temp_html = `<div class="col">
-                                                <div class="card h-100">
-                                                    <img src="..." class="${image}" alt="...">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">${title}</h5>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <small class="text-muted">${artist}</small>
-                                                    </div>
+// 문자 반복 코딩 x,title, image, star, artist, date, link
+
+                        let temp_html = `<ul class="img-list" >
+                                                <div class="desc-box" onclick="go_review()">
+                                                     <div class="card-img"><img src="${image}" class="" alt="..."></div>
+                                                     <li class="card-title">${title}</li>
+                                                     <li class="artist-name">${artist}</li>
+                                                     <li class="star">${star_image} ${star1}</li>
+
                                                 </div>
-                                          </div>`
+                                         </ul>
+                        `
                         $('#cards-box').append(temp_html)
                     }
                 }
             })
         }
 
+        function go_review() {
+            const $card = $('.img-list')
+            $card.off('click').on('click', function (x) {
+                    const base = this.innerHTML
+                    const base2 = this.innerText
+                    const select = base.split("\n")
+                    const select2 = base2.split("\n")
 
-        function show_more() {
-            $('.more').click(function () {
-                $('.').fadeIn(1000);
-            })
+                    const artist = select2[1]
+                    const title = select2[0]
+                    const img1 = select[2].trim().split("https")
+                    const img2 = img1[1].split("class=")[0]
+                    const img3 = img2.substring(0, img2.length - 2)
+                    const img = "https" + img3
+                    sessionStorage.setItem('title', title)
+                    sessionStorage.setItem('artist', artist)
+                    sessionStorage.setItem('img', img)
+                    console.log(img)
+                    location.href = '/review'
+
+                }
+            )
+
         }
     </script>
 </head>
 
 <body>
 <div class="warmbanner">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiSjnIP92Yq7FifrHY3j-TOIPK8XKQ_Ob7m7_tWv9bnYOOa2qIHZ24z_Ns6xIsV9OLdRUL0_sjqegznm453WicsRZz6pvCNf4SoNYpj3Kq5HbIDJPs4Ay-GU04ForQ9bbPCvOhnRX8v3kff-_V2jF-KOmRykX42n8TNf2DffA94iU_Q3n2WACtlD1qZ/s16000/warmbanner.png"
+    <img onclick="location.href='mypage'"
+         src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUhw2SuRPqeJMOxu60UVWMFRAhLLE78pL1qQaBJqHbXNO_Fxv0-d_j4m4ORNhNihDZ-FLSqfQV8nplR48AsOuYfhSA6-j3c7inZl4TOZByLtobDzIatwdUqo7ItB_lKT93iAwykWXsnHWWk3VnXaxxLZ_vdLVowirkPjWcSVHMKOvPhNl3_og29690/s16000/warmbanner.png"
          class="img-fluid" alt="...">
 </div>
-<div class="card-group">
-    <div class="col">
-        <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
+<div class="mycards">
+    <div class="row row-cols-1 row-cols-md-4 g-3" id="cards-box">
     </div>
-    <div class="col">
-        <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">{star}</small>
-            </div>
-        </div>
-    </div>
-
 </div>
-<div class="d-grid gap-2 col-6 mx-auto">
-    <button class="show_more" type="button">더보기</button>
-</div>
+<button class="topbutton">
+    <div style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</div>
+</button>
 </body>
 
 </html>
